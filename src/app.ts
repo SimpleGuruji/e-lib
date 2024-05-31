@@ -1,4 +1,5 @@
 import express from "express";
+import globalErrorHandler from "./middlewares/error.middleware";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
@@ -13,9 +14,10 @@ app.use(cookieParser());
 app.use(cors());
 
 import userRouter from "./routes/user.routes";
-import globalErrorHandler from "./middlewares/error.middleware";
+import bookRouter from "./routes/book.routes";
 
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/books", bookRouter);
 
 app.use(globalErrorHandler);
 

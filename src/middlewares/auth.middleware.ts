@@ -16,7 +16,7 @@ const verifyJwt = asyncHandler(async (req, res, next) => {
 
   if (!token) return next(createHttpError(401, "Token not provided."));
 
-  const decodedToken = jwt.verify(token, config.tokenExpiry!) as JwtPayload;
+  const decodedToken = jwt.verify(token, config.tokenSecret!) as JwtPayload;
 
   if (!decodedToken) return next(createHttpError(401, "Unauthorized request"));
 
@@ -25,6 +25,8 @@ const verifyJwt = asyncHandler(async (req, res, next) => {
   if (!user) return next(createHttpError(404, "User not found."));
 
   req.user = user;
+
+  next();
 });
 
 export default verifyJwt;
